@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTextEdit" name="textEdit"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionNewFile"/>
+    <addaction name="actionOpenFile"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveFile"/>
+    <addaction name="actionSaveAsFile"/>
+    <addaction name="separator"/>
+    <addaction name="actionExitFile"/>
+   </widget>
+   <widget class="QMenu" name="menuEditar">
+    <property name="title">
+     <string>Editar</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="actionCut"/>
+    <addaction name="separator"/>
+    <addaction name="actionFind"/>
+    <addaction name="actionChange"/>
+    <addaction name="actionChangeAll"/>
+   </widget>
+   <widget class="QMenu" name="menuIr">
+    <property name="title">
+     <string>Ir</string>
+    </property>
+    <addaction name="actionGoToLine"/>
+    <addaction name="actionGoToColumn"/>
+    <addaction name="separator"/>
+    <addaction name="actionNextFile"/>
+    <addaction name="actionPreviousFile"/>
+   </widget>
+   <addaction name="menuArchivo"/>
+   <addaction name="menuEditar"/>
+   <addaction name="menuIr"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNewFile">
+   <property name="text">
+    <string>Nuevo archivo</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpenFile">
+   <property name="text">
+    <string>Abrir archivo</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSaveFile">
+   <property name="text">
+    <string>Guardar</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSaveAsFile">
+   <property name="text">
+    <string>Guardar como</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+Shift+S</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionExitFile">
+   <property name="text">
+    <string>Salir</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+W</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Deshacer</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+Z</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Rehacer</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copiar</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+C</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Pegar</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+V</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="text">
+    <string>Cortar</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+X</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="text">
+    <string>Encontrar</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+F</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionChange">
+   <property name="text">
+    <string>Remplazar</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+G</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionChangeAll">
+   <property name="text">
+    <string>Remplazar todos</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+Shift+G</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+G</string>
+   </property>
+  </action>
+  <action name="actionGoToLine">
+   <property name="icon">
+    <iconset theme="appointment-soon">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>A linea</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+L</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionGoToColumn">
+   <property name="text">
+    <string>A columna</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+K</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="actionNextFile">
+   <property name="text">
+    <string>Archivo siguiente</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+Right</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Right</string>
+   </property>
+  </action>
+  <action name="actionPreviousFile">
+   <property name="text">
+    <string>Archivo previo</string>
+   </property>
+   <property name="toolTip">
+    <string>Ctrl+Left</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Left</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

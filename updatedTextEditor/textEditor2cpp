@@ -1,0 +1,164 @@
+#include "textEditor.h"
+#include <iostream>
+#include <stdexcept>
+
+void TextEditor::initialize() {
+    try {
+        initscr();
+        cbreak();
+        noecho();
+        keypad(stdscr, TRUE);
+
+        NodeString::current = new NodeString("", nullptr, nullptr);
+        NodeString::first = NodeString::last = NodeString::current;
+
+        Display::defaultPosition();
+    } catch (const std::exception &e) {
+        std::cerr << "Error during initialization: " << e.what() << std::endl;
+        throw;
+    }
+}
+
+void TextEditor::openFile(const std::string &fileName) {
+    try {
+        std::ifstream file(fileName);
+        
+        // If the file does not exist, make a new file
+        if (!file.is_open()) {
+            std::ofstream newFile(fileName);
+            newFile.close();
+        } else {
+            std::string line;
+            std::vector<std::string> fileContent;
+
+            while (getline(file, line)) {
+                fileContent.push_back(line);
+            }
+
+            try {
+                NodeString::putFileInBuffer(fileContent);
+            } catch (const std::exception &e) {
+                std::cerr << "Error putting file in buffer: " << e.what() << std::endl;
+                throw;
+            }
+             
+            try {
+                Display::putFileInScreen(fileContent);
+            } catch (const std::exception &e){
+                std::cerr << "Error putting file in screen: " << e.what() << std::endl;
+                throw;
+            }
+        }
+        file.close();
+    } catch (const std::exception &e) {
+        std::cerr << "Error opening file: " << e.what() << std::endl;
+        throw;
+    }
+}
+
+void TextEditor::saveFile(const std::string &filename) {
+    try {
+        std::ofstream file(filename);
+        if (!file.is_open()) {
+            throw std::runtime_error("Could not open file for writing: " + filename);
+        }
+
+        NodeString *aux = NodeString::first;
+        while (aux != nullptr) {
+            file << aux->line << std::endl;
+            aux = aux->next;
+        }
+
+        file.close();
+    } catch (const std::exception &e) {
+        std::cerr << "Error saving file: " << e.what() << std::endl;
+        throw;
+    }
+}
+
+void TextEditor::closeFile() {
+    try {
+        endwin();
+
+        NodeString *aux = NodeString::first;
+        while (aux != nullptr) {
+            NodeString *next = aux->next;
+            delete aux;
+            aux = next;
+        }
+    } catch (const std::exception &e) {
+        std::cerr << "Error during closing: " << e.what() << std::endl;
+        throw;
+    }
+}
+
+void TextEditor::saveCloseFile(const std::string &filename) {
+    try {
+        endwin();
+        std::ofstream file(filename);
+        if (!file.is_open()) {
+            throw std::runtime_error("Could not open file for writing: " + filename);
+        }
+
+        NodeString *aux = NodeString::first;
+        while (aux != nullptr) {
+            file << aux->line << std::endl;
+            NodeString *next = aux->next;
+            delete aux;
+            aux = next;
+        }
+
+        file.close();
+    } catch (const std::exception &e) {
+        std::cerr << "Error saving and closing file: " << e.what() << std::endl;
+        throw;
+    }
+}
+
+void TextEditor::run() {
+    try {
+        int ch;
+        while ((ch = getch()) != KEY_F(1)) {
+            switch (ch) {
+                case KEY_UP:
+                    Display::moveUp();
+                    NodeString::moveUp();
+                    break;
+                case KEY_DOWN:
+                    Display::moveDown();
+                    NodeString::moveDown();
+                    break;
+                case KEY_LEFT:
+                    Display::moveLeft();
+                    NodeString::moveLeft(Display::x);
+                    break;
+                case KEY_RIGHT:
+                    Display::moveRight();
+                    NodeString::moveRight(Display::x);
+                    break;
+                case KEY_BACKSPACE:
+                    Display::deleteChar();
+                    NodeString::deleteChar(Display::y, Display::x);
+                    break;
+                case '\n':
+                    Display::newLine();
+                    NodeString::newLine(Display::x);
+                    break;
+                case Ctrl_S:
+                    saveFile("untitled");
+                    break;
+                case Ctrl_X:
+                    closeFile();
+                    break;
+                default:
+                    Display::addChar(ch);
+                    NodeString::addChar(Display::x, ch);
+                    break;
+            }
+            refresh();
+        }
+    } catch (const std::exception &e) {
+        std::cerr << "Error during execution: " << e.what() << std::endl;
+        throw;
+    }
+}
